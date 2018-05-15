@@ -23,7 +23,7 @@ docker run -d -p 80:80 katie/reachability-node
 ### docker sux?
 if you don't like docker, try [github binaries](https://github.com/kayteh/reachability-tester/releases/latest)
 
-web UI (app) binary takes an env var, `CONFIG_PATH` that points to the config.json.
+web UI (app) binary takes an env var, `CONFIG_PATH` that points to the config.json.  
 both binaries (app, node) take an env var, `ADDR` that defines what IP:port (e.g. `127.0.0.1:8003`) it will be on.
 
 ## building/contributing
