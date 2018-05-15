@@ -44,3 +44,5 @@ go build -o node ./cmd/node
 node is a fasthttp server, only lives to serve a single file, but it's compiled in so it's a self-contained binary.
 
 app is a fasthttp server, but renders an HTML template to serve as the test on once at start time. it also serves a single error image. the HTML template is generated from CONFIG_PATH's json.
+
+web UI is a tachyon-based UI. nothing really more to it.
