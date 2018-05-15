@@ -4,6 +4,8 @@ inspired by http://ec2-reachability.amazonaws.com
 
 ## quick go 
 
+**please note** that every part of this is designed for HTTP, not HTTPS. this is deliberately done to get around browser security while still being very very lightweight. you can put proxies in front of this to help out but that seems really cumbersome.
+
 ### web UI
 
 ```sh
