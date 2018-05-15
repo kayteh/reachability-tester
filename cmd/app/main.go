@@ -1,5 +1,5 @@
 // Package app is a binary for building then serving the reachability test.
-//go:generate go-bindata -nomemcopy templates img
+//go:generate go-bindata -nomemcopy -nometadata templates img
 package main
 
 import (
@@ -10,7 +10,7 @@ import (
 	"log"
 	"net"
 
-	util "github.com/kayteh/reachability"
+	util "github.com/kayteh/reachability-tester"
 	"github.com/valyala/fasthttp"
 )
 

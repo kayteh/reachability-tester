@@ -39,6 +39,13 @@ go build -o app ./cmd/app
 go build -o node ./cmd/node
 ```
 
+**building docker stuff**
+```sh
+# by default, builds to katie/reachability-ui and katie/reachablity-node, if no images are defined here.
+./docker-tool.sh build reachtest-ui reachtest-node
+./docker-tool.sh push reachtest-ui reachtest-node
+```
+
 ### abstract gist
 
 node is a fasthttp server, only lives to serve a single file, but it's compiled in so it's a self-contained binary.

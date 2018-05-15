@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"log"
 
-	util "github.com/kayteh/reachability"
+	util "github.com/kayteh/reachability-tester"
 	"github.com/valyala/fasthttp"
 )
 
