@@ -1,0 +1,77 @@
+{
+  "SiteTitle": "",
+  "Timeout": 10,
+  "ColorScheme": {
+    "MainBg":           "near-black",
+    "MainText":         "near-white",
+    "GroupHeaderText":  "white-80",
+    "GroupHeaderBg":    "black-80",
+    "GroupCardBg":      "black-60",
+    "RegionHeaderText": "white-70",
+    "RegionHeaderBg":   "black-70",
+    "RegionCardBg":     "black-50",
+    "SubnetText":       "white-60",
+    "SubnetBg":         "black-40",
+    "FailedSubnetText": "black",
+    "FailedSubnetBg":   "dark-red",
+    "SubnetBorder":     "white-20",
+    "Border":           "white-10"
+  },
+  "Regions": [
+    {
+      "Name": "Australia",
+      "NetworkGroups": [
+        {
+          "Name": "Sydney",
+          "Subnets": [
+            {
+              "Name": "SY3",
+              "Subnet": "103.212.224.0/22",
+              "Target": "103.212.224.255"
+            },
+            {
+              "Name": "SY3",
+              "Subnet": "127.0.0.0/24",
+              "Target": "127.0.0.1:3001"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Local",
+      "NetworkGroups": [
+        {
+          "Name": "Sphere Main Net",
+          "Subnets": [
+            {
+              "Name": "Front",
+              "Subnet": "10.1.1.0/16",
+              "Target": "10.1.10.16"
+            },
+            {
+              "Name": "Back",
+              "Subnet": "10.2.1.0/16",
+              "Target": "10.2.10.6"
+            },
+            {
+              "Name": "WiFi",
+              "Subnet": "10.3.1.0/16",
+              "Target": "10.3.10.7:3001"
+            }
+          ]
+        },
+        {
+          "Name": "Sphere VLAN",
+          "Subnets": [
+            {
+              "Name": "Services",
+              "Subnet": "10.1.101.0/24",
+              "Target": "10.1.101.1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

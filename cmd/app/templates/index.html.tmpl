@@ -1,0 +1,236 @@
+{{$cs := .ColorScheme}}
+
+<!doctype html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>{{.SiteTitle}} Reachability Test</title>
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.testimg {
+  top: 0; bottom: 0; left: -15px; right: 15px;  
+  position: absolute;
+  width: 1.4em;
+  height: 1.4rem;
+  /* top: 0.1em; */
+}
+
+.imgctr {
+  min-height: 1.4rem;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  width: 1.4rem;
+  max-height: 1.4rem;
+  max-width: 1.4rem;
+  position: relative;
+}
+
+.imgctr.loading::after {
+  position: absolute;
+  top: 0; bottom: 0; left: -15px; right: 15px;
+  border-radius: 100%;
+  content: "";
+  animation: loading 2s alternate infinite;
+  background-color: rgba(180,180,180,0.5);
+  z-index: 100;
+}
+
+@keyframes loading {
+  0% {
+    transform: scale(0.1);
+  }
+
+  33% {
+    transform: scale(1.1);
+  }
+
+  66% {
+    transform: scale(0.4);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+</style>
+<body class="bg-{{$cs.MainBg}} {{$cs.MainText}}">
+<header>
+  <article class="mw6 mw6-ns center pa2 pa5-ns" data-name="slab-stat-small">
+    <h3 class="f6 ttu tracked">{{.SiteTitle}} Reachability Test</h3>
+    <div class="cf">
+      <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+        <dd class="f6 fw4 ml0">Passed</dd>
+        <dd class="f3 fw6 ml0" id="passed-count">0</dd>
+      </dl>
+      <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+        <dd class="f6 fw4 ml0">Failed</dd>
+        <dd class="f3 fw6 ml0" id="failed-count">0</dd>
+      </dl>
+      <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+        <dd class="f6 fw4 ml0">Total Nodes</dd>
+        <dd class="f3 fw6 ml0" id="total-count">{{.TargetsCount}}</dd>
+      </dl>
+      <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+          <dd class="f6 fw4 ml0">Status</dd>
+          <dd class="f3 fw6 ml0"><span id="status-msg">Running</span> <span class="js-timeleft">({{.Timeout}}s)</span></dd>
+      </dl>
+    </div>
+  </article>
+</header>
+<main class="mw9 center ph3-ns">
+  <div class="cf ph2-ns">
+    <!-- region -->
+    {{range .Regions}}
+    <article class="fl w-100 w-33-ns mh1 br3 hidden ba b--{{$cs.Border}} mv4">
+      <h1 class="f4 bg-{{$cs.RegionHeaderBg}} {{$cs.RegionHeaderText}} br3 br--top mv0 pv2 ph3">
+        {{.Name}}
+      </h1>
+      <div class="pa3 pt0 bt b--{{$cs.Border}} bg-{{$cs.RegionCardBg}}">
+        <!-- group -->
+        {{range .NetworkGroups}}
+        <article class="center br3 mt3 hidden ba b--{{$cs.Border}}">
+          <h2 class="f5 bg-{{$cs.GroupHeaderBg}} {{$cs.GroupHeaderText}} br3 br--top mv0 pv1 ph3">
+            {{.Name}}
+          </h2>
+          <div class="pa0 bt b--{{$cs.Border}} bg-{{$cs.GroupCardBg}}">
+            <ul class="list pl0 mt0 measure center">
+              <!-- subnets -->
+              {{range .Subnets}}
+              <li class="flex items-center lh-copy pa3 ph0-l bb b--{{$cs.SubnetBorder}} bg-{{$cs.SubnetBg}} {{$cs.SubnetText}}">
+                <div class="pl3 flex-auto">
+                    <span class="f6 db b">{{.Name}}</span>
+                </div>
+                <div class="pl3 flex-auto">
+                  <span class="f6 db">{{.Subnet}}</span>
+                </div>
+                <div class="ph3 flex-auto">
+                  <span class="f6 db">{{ipfilter .Target}}</span>
+                </div>
+                <div class="pr3 imgctr loading">
+                  <!-- this is deliberately done so we can control when the image loads. -->
+                  <img class="js-testimg testimg" data-src="http://{{.Target}}/ok.png?1">
+                  <noscript>
+                    <!-- and then this in case it's not going to load. -->
+                    <img class="testimg" src="http://{{.Target}}/ok.png?1">                    
+                  </noscript>
+                </div>
+              </li>
+              {{end}}
+              <!-- /subnet -->
+            </ul>
+          </div>
+        </article> 
+        {{end}}
+        <!-- /group -->
+      </div>
+    </article>
+    {{end}} 
+    <!-- /region -->
+  </div>
+</main>
+
+<script>
+  (function () {
+    var data = {
+      pass: 0,
+      fail: 0,
+      total: {{.TargetsCount}},
+      state: "Running"
+    }
+
+    function updateCounts() {
+      document.querySelector('#passed-count').innerHTML = data.pass
+      document.querySelector('#failed-count').innerHTML = data.fail
+      
+      if (data.pass + data.fail === data.total) {
+        data.state = "Finished"
+      }
+      
+      document.querySelector('#status-msg').innerHTML = data.state
+      document.querySelector('#total-count').innerHTML = data.total
+    }
+
+    function addError() {
+      data.fail++
+      updateCounts()
+    }
+
+    function addPass() {
+      data.pass++  
+      updateCounts()
+    }
+
+    function handleImgError(event) {
+      var el = event.target
+      el.src = '/error.png'
+      el.parentElement.classList.remove("loading")
+      el.parentElement.parentElement.classList.add('bg-{{$cs.FailedSubnetBg}}', '{{$cs.FailedSubnetText}}')
+      el.onerror = null
+      addError()
+    }
+
+    function handleImgLoad(event) {
+      event.target.onload = null
+      event.target.parentElement.classList.remove("loading")
+      addPass()
+    }
+
+    updateCounts()
+    const states = new Map()
+
+    const timeoutSecs = {{.Timeout}}
+    let timeoutLeft = timeoutSecs
+
+    function updateTime() {
+      const timeDisplay = document.querySelector('.js-timeleft')
+      if (timeoutLeft > 0 && data.state !== 'Finished') {
+        timeDisplay.innerHTML = '('+timeoutLeft+'s)'
+        timeoutLeft -= 1
+        setTimeout(updateTime, 1000)
+      } else if (data.state === 'Finished') {
+        timeDisplay.innerHTML = ''
+      }
+    }
+
+    updateTime()
+    
+    document.querySelectorAll('.js-testimg').forEach(function (el) {
+      states.set(el, false)
+
+      el.onerror = el.onabort = function (e) {
+        states.set(el, true)       
+        el.onload = null
+        el.onerror = null
+        el.onabort = null
+        handleImgError(e)
+      }
+      
+      el.onload = function (e) {
+        states.set(el, true)                      
+        el.onload = null
+        el.onerror = null
+        el.onabort = null
+        handleImgLoad(e)
+      }
+
+      el.src = el.attributes.getNamedItem('data-src').value
+    })
+
+    setTimeout(function () {
+      states.forEach(function (st, el) {
+        if (st === false) {
+          el.onerror({ target: el })
+        }
+      })
+    }, timeoutSecs*1000)
+  })()
+</script>
+</body>

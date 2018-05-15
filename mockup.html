@@ -1,0 +1,229 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Streamline Servers Reachability Test</title>
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.bg-light-red {
+  background-color: #f5baba;
+}
+
+.testimg {
+  min-height: 1.4em;
+  min-width: 1.4em;
+  max-height: 1.4em;
+  max-width: 1.4em;
+}
+</style>
+
+<script>
+
+</script>
+
+<header>
+  <article class="mw5 mw6-ns center pa2 pa5-ns" data-name="slab-stat-small">
+    <h3 class="f6 ttu tracked">Reachability Test</h3>
+    <div class="cf">
+      <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+        <dd class="f6 fw4 ml0">Passed</dd>
+        <dd class="f3 fw6 ml0" id="passed-count">0</dd>
+      </dl>
+      <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+        <dd class="f6 fw4 ml0">Failed</dd>
+        <dd class="f3 fw6 ml0" id="failed-count">0</dd>
+      </dl>
+      <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+        <dd class="f6 fw4 ml0">Total Nodes</dd>
+        <dd class="f3 fw6 ml0" id="total-count">13</dd>
+      </dl>
+      <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+          <dd class="f6 fw4 ml0">Status</dd>
+          <dd class="f3 fw6 ml0"><span id="status-msg">Running</span> <span class="js-timeleft">(10s)</span></dd>
+      </dl>
+    </div>
+  </article>
+</header>
+<main class="mw9 center ph3-ns">
+  <div class="cf ph2-ns">
+    <article class="fl w-100 w-25-ns mh1 br3 hidden ba b--black-10 mv4">
+      <h1 class="f4 bg-moon-gray br3 br--top black-70 mv0 pv2 ph3">
+        Australia
+      </h1>
+      <div class="pa3 bt b--black-10">
+        <article class="center br3 hidden ba b--black-10">
+          <h2 class="f4 bg-near-white br3 br--top black-60 mv0 pv1 ph3">
+            Sydney
+          </h2>
+          <div class="pa0 bt b--black-10">
+            <ul class="list pl0 mt0 measure center">
+              <li class="flex items-center tc lh-copy pa3 ph0-l bb b--black-10">
+                  <div class="pl3 flex-auto">
+                    <span class="f6 db b black-70">212.103.10.0/24</span>
+                  </div>
+                  <div class="ph3 flex-auto">
+                    <span class="f6 db black-70">212.103.10.254</span>
+                  </div>
+                  <div class="pr3 flex-auto">
+                    <img class="js-testimg testimg" data-src="http://127.0.0.1:3001/ok.png?1">
+                  </div>
+                </li>
+                <li class="flex items-center tc lh-copy pa3 ph0-l bb b--black-10">
+                    <div class="pl3 flex-auto">
+                      <span class="f6 db b black-70">212.103.11.0/24</span>
+                    </div>
+                    <div class="ph3 flex-auto">
+                      <span class="f6 db black-70">212.103.11.254</span>
+                    </div>
+                    <div class="pr3 flex-auto">
+                      <img class="js-testimg testimg" data-src="http://10.1.1.1:3001/ok.png?1">
+                    </div>
+                </li>
+              </ul>
+          </div>
+        </article> 
+      </div>
+    </article>      
+    <article class="fl w-100 w-25-ns mh1 br3 hidden ba b--black-10 mv4">
+      <h1 class="f4 bg-moon-gray br3 br--top black-70 mv0 pv2 ph3">
+        Australia
+      </h1>
+      <div class="pa3 bt b--black-10">
+        <article class="center br3 hidden ba b--black-10">
+          <h2 class="f4 bg-near-white br3 br--top black-60 mv0 pv1 ph3">
+            Sydney
+          </h2>
+          <div class="pa0 bt b--black-10">
+            <ul class="list pl0 mt0 measure center">
+              <li class="flex items-center tc lh-copy pa3 ph0-l bb b--black-10">
+                  <div class="pl3 flex-auto">
+                    <span class="f6 db b black-70">212.103.10.0/24</span>
+                  </div>
+                  <div class="ph3 flex-auto">
+                    <span class="f6 db black-70">212.103.10.254</span>
+                  </div>
+                  <div class="pr3 flex-auto">
+                    <img class="js-testimg testimg" data-src="http://127.0.0.1:3001/ok.png?1">
+                  </div>
+                </li>
+                <li class="flex items-center tc lh-copy pa3 ph0-l bb b--black-10">
+                    <div class="pl3 flex-auto">
+                      <span class="f6 db b black-70">212.103.11.0/24</span>
+                    </div>
+                    <div class="ph3 flex-auto">
+                      <span class="f6 db black-70">212.103.11.254</span>
+                    </div>
+                    <div class="pr3 flex-auto">
+                      <img class="js-testimg testimg" data-src="http://10.1.1.1:3001/ok.png?1">
+                    </div>
+                </li>
+              </ul>
+          </div>
+        </article> 
+      </div>
+    </article>  
+  </div>
+</main>
+
+<script>
+  (function () {
+    var data = {
+      pass: 0,
+      fail: 0,
+      total: 2,
+      state: "Running"
+    }
+
+    function updateCounts() {
+      document.querySelector('#passed-count').innerHTML = data.pass
+      document.querySelector('#failed-count').innerHTML = data.fail
+      
+      if (data.pass + data.fail === data.total) {
+        data.state = "Finished"
+      }
+      
+      document.querySelector('#status-msg').innerHTML = data.state
+      document.querySelector('#total-count').innerHTML = data.total
+    }
+
+    function addError() {
+      data.fail++
+      updateCounts()
+    }
+
+    function addPass() {
+      data.pass++  
+      updateCounts()
+    }
+
+    function handleImgError(event) {
+      var el = event.target
+      el.src = 'cmd/app/img/error.png'
+      el.parentElement.parentElement.classList.add('bg-light-red')
+      el.onerror = null
+      addError()
+    }
+
+    function handleImgLoad(event) {
+      event.target.onload = null
+      addPass()
+    }
+
+    updateCounts()
+    const states = new Map()
+
+    const timeoutSecs = 10
+    let timeoutLeft = timeoutSecs
+
+    function updateTime() {
+      const timeDisplay = document.querySelector('.js-timeleft')
+      if (timeoutLeft > 0 && data.state !== 'Finished') {
+        timeDisplay.innerHTML = '('+timeoutLeft+'s)'
+        timeoutLeft -= 1
+        setTimeout(updateTime, 1000)
+      } else if (data.state === 'Finished') {
+        timeDisplay.innerHTML = ''
+      }
+    }
+
+    updateTime()
+    
+    document.querySelectorAll('.js-testimg').forEach(function (el) {
+      states.set(el, false)
+
+      el.onerror = el.onabort = function (e) {
+        states.set(el, true)       
+        el.onload = null
+        el.onerror = null
+        el.onabort = null
+        handleImgError(e)
+      }
+      
+      el.onload = function (e) {
+        states.set(el, true)                      
+        el.onload = null
+        el.onerror = null
+        el.onabort = null
+        handleImgLoad(e)
+      }
+
+      el.src = el.attributes.getNamedItem('data-src').value
+    })
+
+    setTimeout(function () {
+      states.forEach(function (st, el) {
+        if (st === false) {
+          el.onerror({ target: el })
+        }
+      })
+    }, timeoutSecs*1000)
+  })()
+</script>
