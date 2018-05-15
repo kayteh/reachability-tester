@@ -40,7 +40,18 @@ body {
   content: "";
   animation: loading 2s alternate infinite;
   background-color: rgba(180,180,180,0.5);
-  z-index: 100;
+}
+
+.no-js .imgctr.loading::after {
+  visibility: hidden;
+}
+
+.no-js img[data-src] {
+  display: none;
+}
+
+.no-js .hide-if-no-js {
+  display: none;
 }
 
 @keyframes loading {
@@ -61,11 +72,11 @@ body {
   }
 }
 </style>
-<body class="bg-{{$cs.MainBg}} {{$cs.MainText}}">
+<body class="bg-{{$cs.MainBg}} {{$cs.MainText}} no-js">
 <header>
   <article class="mw6 mw6-ns center pa2 pa5-ns" data-name="slab-stat-small">
     <h3 class="f6 ttu tracked">{{.SiteTitle}} Reachability Test</h3>
-    <div class="cf">
+    <div class="cf hide-if-no-js">
       <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
         <dd class="f6 fw4 ml0">Passed</dd>
         <dd class="f3 fw6 ml0" id="passed-count">0</dd>
@@ -139,6 +150,8 @@ body {
 
 <script>
   (function () {
+    document.body.classList.remove('no-js')
+
     var data = {
       pass: 0,
       fail: 0,
